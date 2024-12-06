@@ -1,0 +1,48 @@
+{
+  "name": "Battle IA",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with Fastify-CLI.",
+  "main": "./dist/app.js",
+  "type": "commonjs",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --require ts-node/register test/**/*.test.ts",
+    "start": "npm run build && fastify start -l info ./dist/app.js",
+    "dev": "ts-node-dev --respawn app.ts",
+    "build": "tsc -p tsconfig.json",
+    "generate": "npx drizzle-kit generate --config=./config/drizzle.config.ts --name=default-db",
+    "push": "npx drizzle-kit push --config=./config/drizzle.config.ts",
+    "seed": "ts-node ./database/seeds/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/autoload": "^6.0.0",
+    "@fastify/cookie": "^11.0.1",
+    "@fastify/cors": "^10.0.1",
+    "@fastify/csrf-protection": "^7.0.1",
+    "@fastify/rate-limit": "^10.2.1",
+    "@fastify/sensible": "^6.0.0",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.36.4",
+    "fastify": "^5.0.0",
+    "fastify-cli": "^7.0.1",
+    "fastify-plugin": "^5.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mocha": "^10.8.2",
+    "mysql2": "^3.11.4",
+    "node": "^20.18.1",
+    "slugify": "^1.6.6"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^9.2.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.10.0",
+    "drizzle-kit": "^0.28.1",
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.19.2"
+  }
+}

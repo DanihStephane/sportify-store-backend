@@ -1,0 +1,51 @@
+version: "3.9" 
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend-boss
+    ports:
+      - "3003:3000" # Mappe le port 3003 du conteneur au port 3000 de l'hôte
+    environment:
+      - DB_HOST=mariadb-boss
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=toor
+      - DB_NAME=database
+    networks:
+      - boss-network
+    depends_on:
+      - mariadb-boss
+
+  mariadb-boss:
+    image: mariadb:latest
+    container_name: mariadb-boss
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: database
+    #   MYSQL_USER: boss         # Utilisateur personnalisé
+    #   MYSQL_PASSWORD: boss # Mot de passe utilisateur
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - boss-network
+
+  adminer-boss:
+    image: adminer
+    container_name: adminer-boss
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mariadb-boss
+    networks:
+      - boss-network
+
+networks:
+  boss-network:
+    driver: bridge
+
+volumes:
+  mariadb_data:
